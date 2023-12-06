@@ -30,7 +30,8 @@
 <form id="status-update" action="/cases/<%= thisCase._id %>/status" method="POST">
     <label>Status:</label>
     <select name="status">
-        <option value="New">New</option>
+        <option value="" selected>Select an Option</option>
+        <option value="Cancel">Cancel</option>
         <option value="Open">Open</option>
         <option value="In Progress">In Progress</option>
         <option value="Resolved">Resolved</option>
@@ -40,9 +41,12 @@
 
 <% if (thisCase.comment[1]) { %>
     <h3>Comments</h3>
-    <% thisCase.comment.forEach(c => { %>
+    <% thisCase.comment.forEach(function(c, idx) { %>
         <% if(c === thisCase.comment[0]) return %>
-        <p><%= c %></p>
+        <div><%= c %></div>
+        <form action="/cases/<%= thisCase._id %>/deletecomment?_method=DELETE" method="POST">
+        <button name="<%= idx %>" type="submit">Delete</button>
+        </form>
    <% }) %>
 <% }else { %>
     <h3>No Additional Comments Yet</h3>

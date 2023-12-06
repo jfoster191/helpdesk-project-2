@@ -7,7 +7,8 @@ module.exports = {
     create,
     show,
     newComment,
-    statusUpdate
+    statusUpdate,
+    deleteComment
 };
 
 async function index(req, res){
@@ -16,7 +17,7 @@ async function index(req, res){
 }
 
 async function userIndex(req, res){
-    const cases = await Case.find({}).where('requestor').equals(`${req.user.id}`);
+    const cases = await Case.find({}).where('requestor').equals(`${req.user._id}`);
     res.render('cases/myindex', {title: 'My Cases', cases});
 }
 
@@ -50,15 +51,26 @@ async function show(req, res){
 
 async function newComment(req, res){
     const thisCase = await Case.findById(req.params.id);
-    if (!req.body.comment) res.redirect('/cases/${thisCase._id}');
+    console.log(typeof req.body.comment)
+    if (req.body.comment === '') return
     thisCase.comment.push(req.body.comment);
     await thisCase.save();
-    res.redirect('/cases/${thisCase._id}');
+    res.render('cases/show', {title: 'Case', thisCase});
 }
 
 async function statusUpdate(req, res){
     const thisCase = await Case.findById(req.params.id);
     thisCase.status = req.body.status;
     await thisCase.save();
-    res.redirect('/cases/${thisCase._id}');
+    res.render('cases/show', {title: 'Case', thisCase});
+}
+
+async function deleteComment(req, res){
+    const thisCase = await Case.findById(req.params.id);
+    let id = JSON.stringify(req.body);
+    id = id.slice(2,3);
+    thisCase.comment.splice(`${id}`, 1);
+    console.log(id, thisCase.comment)
+    await thisCase.save();
+    res.render('cases/show', {title: 'Case', thisCase});
 }
