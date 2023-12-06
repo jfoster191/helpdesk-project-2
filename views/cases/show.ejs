@@ -1,0 +1,58 @@
+<%- include('../partials/header') %>
+
+<h2>Case <%= thisCase.caseNum %>, <%= thisCase.subject %></h2>
+<div id="cases-index">
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Comment</th>
+                <th>Case Number</th>
+                <th>Status</th>
+                <th>High Priority</th>
+                <th>Requestor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= thisCase.subject %></td>
+                <td><%= thisCase.comment[0] %></td>
+                <td><%= thisCase.caseNum %></td>
+                <td><%= thisCase.status %></td>
+                <td><%= thisCase.highPriority %></td>
+                <td><%= thisCase.requestor %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<form id="status-update" action="/cases/<%= thisCase._id %>/status" method="POST">
+    <label>Status:</label>
+    <select name="status">
+        <option value="New">New</option>
+        <option value="Open">Open</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+    </select>
+    <button type="submit">Update Status</button>
+</form>
+
+<% if (thisCase.comment[1]) { %>
+    <h3>Comments</h3>
+    <% thisCase.comment.forEach(c => { %>
+        <% if(c === thisCase.comment[0]) return %>
+        <p><%= c %></p>
+   <% }) %>
+<% }else { %>
+    <h3>No Additional Comments Yet</h3>
+<% } %>
+<br>
+
+<form id="new-comment" action="/cases/<%= thisCase._id %>/comment" method="POST">
+    <label>Add Additional Comment:</label>
+    <textarea name="comment"></textarea>
+    <button type="submit">Submit New Comment</button>
+</form>
+
+<%- include('../partials/footer') %>
