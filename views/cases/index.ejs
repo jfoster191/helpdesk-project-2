@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+
+<h2>All Cases</h2>
+<div id="cases-index">
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Comment</th>
+                <th>Case Number</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Requestor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% cases.forEach(c => { %>
+                <tr>
+                    <td><%= c.subject %></td>
+                    <td><%= c.comment %></td>
+                    <td><%= c.caseNum %></td>
+                    <td><%= c.status %></td>
+                    <td><%= c.highPriority %></td>
+                    <td><%= c.requestor %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>

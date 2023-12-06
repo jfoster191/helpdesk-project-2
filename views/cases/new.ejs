@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+
+<h2>New Case</h2>
+<form id="new-form" action="/cases" method="POST">
+    <label>Subject:</label>
+    <input type="text" name="subject">
+    <label>Comment:</label>
+    <textarea name="comment"></textarea>
+    <label>High Priority:</label>
+    <input type="checkbox" name="priority" unchecked>
+    <input type="submit" value="Submit Case">
+  </form>
+
+<%- include('../partials/footer') %>

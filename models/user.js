@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
     required: true
    },
    email: String,
-   avatar: String
+   avatar: String,
+   adminPriv: Boolean
  }, {
    timestamps: true
  });
