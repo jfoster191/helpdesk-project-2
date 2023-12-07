@@ -19,6 +19,9 @@ router.get('/:id', casesCtrl.show);
 //Post /cases/:id/comment
 router.post('/:id/comment', casesCtrl.newComment);
 
+//Post /cases/:id/survey
+router.post('/:id/survey', casesCtrl.newSurvey)
+
 //Delete /cases/:id/deletecomment
 router.delete('/:id/deletecomment', casesCtrl.deleteComment);
 

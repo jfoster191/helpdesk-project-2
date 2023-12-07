@@ -7,6 +7,7 @@ module.exports = {
     create,
     show,
     newComment,
+    newSurvey,
     statusUpdate,
     deleteComment
 };
@@ -51,13 +52,20 @@ async function show(req, res){
 
 async function newComment(req, res){
     const thisCase = await Case.findById(req.params.id);
-    console.log(typeof req.body.comment)
     if (req.body.comment === '') return
     thisCase.comment.push(req.body.comment);
     await thisCase.save();
     res.render('cases/show', {title: 'Case', thisCase});
 }
 
+async function newSurvey(req, res){
+    const thisCase = await Case.findById(req.params.id);
+    req.body.user = req.user;
+    thisCase.survey = req.body;
+    await thisCase.save();
+    const survey = await thisCase.populate('survey')
+    res.render('cases/show', {title: 'Case', thisCase, survey});
+}
 async function statusUpdate(req, res){
     const thisCase = await Case.findById(req.params.id);
     thisCase.status = req.body.status;
@@ -70,7 +78,6 @@ async function deleteComment(req, res){
     let id = JSON.stringify(req.body);
     id = id.slice(2,3);
     thisCase.comment.splice(`${id}`, 1);
-    console.log(id, thisCase.comment)
     await thisCase.save();
     res.render('cases/show', {title: 'Case', thisCase});
 }

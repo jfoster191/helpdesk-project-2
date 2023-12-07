@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const surveySchema = new Schema({
     comment: String,
-    rating: Number,
+    rating: {type: Number, enum: [1, 2, 3, 4, 5], required: true},
     user: {type: Schema.Types.ObjectId, ref: 'User', require: true}
 }, {
     timestamps: true
@@ -16,7 +16,7 @@ const caseSchema = new Schema({
     caseNum: Number,
     dueDate: Date,
     highPriority: {type: Boolean, default: false},
-    survey: [surveySchema],
+    survey: surveySchema,
     requestor: {type: Schema.Types.ObjectId, ref: 'requestor'},
     asignee: {type: Schema.Types.ObjectId, ref: 'asignee'}
 }, {
