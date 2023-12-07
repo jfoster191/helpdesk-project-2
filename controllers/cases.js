@@ -33,10 +33,9 @@ async function create(req, res){
     req.body.caseNum = parseInt(thisCase.length)+1;
     req.body.dueDate = new Date();
     req.body.highPriority = !!req.body.priority;
-    req.body.survey = [];
+    req.body.survey;
     req.body.requestor = req.user;
     delete req.body.priority;
-    console.log(req.body, "LOOK HERE !!!");
     try{
         await Case.create(req.body);
         res.redirect('/cases/mycases');

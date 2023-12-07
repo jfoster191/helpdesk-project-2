@@ -15,7 +15,7 @@ require('./config/passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var casesRouter = require('./routes/cases');
-var surveyRouter = require('./routes/surveys')
+var surveysRouter = require('./routes/surveys')
 
 var app = express();
 
@@ -45,8 +45,8 @@ app.use(function(req, res, next){
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/cases', casesRouter);
-app.use('/surveys', surveyRouter);
+app.use('/cases', ensureLoggedIn, casesRouter);
+app.use('/surveys', ensureLoggedIn, surveysRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

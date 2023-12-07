@@ -1,11 +1,16 @@
 const Case = require('../models/case');
 
 module.exports = {
-    index
+    index,
+    userIndex
 }
 
 async function index (req, res){
     const cases = await Case.find({});
-    // console.log(cases);
-    res.render('survey/index', {title: 'All Survey', cases})
+    res.render('surveys/index', {title: 'All Surveys', cases});
+}
+
+async function userIndex (req, res){
+    const cases = await Case.find({}).where('requestor').equals(`${req.user._id}`);
+    res.render('surveys/myindex', {title: 'My Surveys', cases});
 }
