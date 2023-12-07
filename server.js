@@ -44,7 +44,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', ensureLoggedIn, usersRouter);
 app.use('/cases', ensureLoggedIn, casesRouter);
 app.use('/surveys', ensureLoggedIn, surveysRouter);
 
