@@ -14,7 +14,7 @@ module.exports = {
 
 async function index(req, res){
     const cases = await Case.find({});
-    res.render('cases/index', {title: 'All Cases', cases});
+    res.render('cases/index', {title: 'All Cases', cases, users});
 }
 
 async function userIndex(req, res){
