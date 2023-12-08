@@ -11,6 +11,7 @@
                 <th>Status</th>
                 <th>High Priority</th>
                 <th>Requestor</th>
+                <th>Assigned To</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +22,12 @@
                     <td><%= c.caseNum %></td>
                     <td><%= c.status %></td>
                     <td><%= c.highPriority %></td>
-                    <td><%= c.requestor %></td>
+                    <td><%= c.requestor.email %></td>
+                    <% if(c.assignee){ %>
+                        <td><%= c.assignee.email %></td>
+                    <% } else{ %>
+                        <td>Unassigned</td>
+                    <% } %>
                 </tr>
             <% }) %>
         </tbody>

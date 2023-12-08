@@ -11,6 +11,7 @@
                 <th>Status</th>
                 <th>High Priority</th>
                 <th>Requestor</th>
+                <th>Assigned To</th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +21,12 @@
                 <td><%= thisCase.caseNum %></td>
                 <td><%= thisCase.status %></td>
                 <td><%= thisCase.highPriority %></td>
-                <td><%= thisCase.requestor %></td>
+                <td><%= thisCase.requestor.email %></td>
+                <% if(thisCase.assignee){ %>
+                    <td><%= thisCase.assignee.email %></td>
+                <% } else{ %>
+                    <td>Unassigned</td>
+                <% } %>
             </tr>
         </tbody>
     </table>
@@ -38,6 +44,21 @@
     </select>
     <button type="submit">Update Status</button>
 </form>
+
+<% if(user.adminPriv === true){ %>
+<form id="assign" action="/cases/<%= thisCase._id %>/assign" method="POST">
+    <label>Assign:</label>
+    <select name="assign">
+        <option value="" selected>Select an Option</option>
+        <% users.forEach(u => { %>
+            <% if(u.adminPriv === true){ %>
+                <option><%= u.email %></option>
+            <% } %>
+        <% }) %>
+    </select>
+    <button type="submit">Assign</button>
+</form>
+<% } %>
 
 <% if (thisCase.comment[1]) { %>
     <h3>Comments</h3>
@@ -81,7 +102,7 @@
                     <td><%= thisCase.caseNum %></td>
                     <td><%= thisCase.status %></td>
                     <td><%= thisCase.highPriority %></td>
-                    <td><%= thisCase.requestor %></td>
+                    <td><%= thisCase.requestor.email %></td>
                 </tr>
             </tbody>
         </table>

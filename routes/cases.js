@@ -28,6 +28,9 @@ router.delete('/:id/deletecomment', casesCtrl.deleteComment);
 //Post /cases/:id/status
 router.post('/:id/status', casesCtrl.statusUpdate);
 
+//Post /cases/:id/assign
+router.post('/:id/assign', casesCtrl.assignUpdate)
+
 //Post /cases
 router.post('/', casesCtrl.create);
 

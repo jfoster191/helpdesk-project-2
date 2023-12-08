@@ -1,4 +1,5 @@
 const Case = require('../models/case');
+const User = require('../models/user');
 
 module.exports = {
     index,
@@ -9,16 +10,17 @@ module.exports = {
     newComment,
     newSurvey,
     statusUpdate,
+    assignUpdate,
     deleteComment
 };
 
 async function index(req, res){
-    const cases = await Case.find({});
+    const cases = await Case.find({}).populate('requestor');
     res.render('cases/index', {title: 'All Cases', cases});
 }
 
 async function userIndex(req, res){
-    const cases = await Case.find({}).where('requestor').equals(`${req.user._id}`);
+    const cases = await Case.find({}).where('requestor').equals(`${req.user._id}`).populate('requestor');
     res.render('cases/myindex', {title: 'My Cases', cases});
 }
 
@@ -45,8 +47,9 @@ async function create(req, res){
 }
 
 async function show(req, res){
-    const thisCase = await Case.findById(req.params.id);
-    res.render('cases/show', {title: 'Cases', thisCase});
+    const thisCase = await Case.findById(req.params.id).populate('requestor');
+    const users = await User.find({});
+    res.render('cases/show', {title: 'Cases', thisCase, users});
 }
 
 async function newComment(req, res){
@@ -70,6 +73,13 @@ async function statusUpdate(req, res){
     thisCase.status = req.body.status;
     await thisCase.save();
     res.render('cases/show', {title: 'Case', thisCase});
+}
+
+async function assignUpdate(req, res){
+    const thisCase = await Case.findById(req.params.id);
+    const assignee = await User.find({}).where('email').equals(`${req.body.assign}`);
+    thisCase.assignee = assignee;
+    await thisCase.save();
 }
 
 async function deleteComment(req, res){

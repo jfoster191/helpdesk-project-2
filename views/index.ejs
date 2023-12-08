@@ -2,8 +2,12 @@
 
 <h2 id="home-text">Home Page</h2>
 <% if(user){ %>
-<h3>Welcome, <%= user.name %><h3>
-<h3>Use the navigation bar to get started.</h3>
+    <h3 id="welcome">Welcome, <%= user.name %>, Use the navigation bar to get started.</h3>
+<% }else { %>
+    <h4>Login To Get Started!</h4>
 <% } %>
-
+<div id="help-desk">
+    <img id="logo" src="https://i.imgur.com/4GvmVp5.png">
+    <div>Help Desk</div>
+</div>
 <%- include('./partials/footer') %>

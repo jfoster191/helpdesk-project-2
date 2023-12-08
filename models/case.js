@@ -17,8 +17,8 @@ const caseSchema = new Schema({
     dueDate: Date,
     highPriority: {type: Boolean, default: false},
     survey: surveySchema,
-    requestor: {type: Schema.Types.ObjectId, ref: 'requestor'},
-    asignee: {type: Schema.Types.ObjectId, ref: 'asignee'}
+    requestor: {type: Schema.Types.ObjectId, ref: 'User'},
+    assignee: {type: Schema.Types.ObjectId, ref: 'User'}
 }, {
     timestamps: true
 });
