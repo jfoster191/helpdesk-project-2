@@ -15,12 +15,17 @@ module.exports = {
 };
 
 async function index(req, res){
-    const cases = await Case.find({}).populate('requestor');
+    const cases = await Case.find({}).populate('requestor').populate('assignee');
     res.render('cases/index', {title: 'All Cases', cases});
 }
 
 async function userIndex(req, res){
-    const cases = await Case.find({}).where('requestor').equals(`${req.user._id}`).populate('requestor');
+    let cases;
+    if (req.user.adminPriv === true){
+        cases = await Case.find({}).where('assignee').equals(`${req.user._id}`).populate('assignee').populate('requestor');
+    } else {        
+        cases = await Case.find({}).where('requestor').equals(`${req.user._id}`).populate('requestor').populate('assignee');
+    }
     res.render('cases/myindex', {title: 'My Cases', cases});
 }
 
@@ -47,7 +52,7 @@ async function create(req, res){
 }
 
 async function show(req, res){
-    const thisCase = await Case.findById(req.params.id).populate('requestor');
+    const thisCase = await Case.findById(req.params.id).populate('requestor').populate('assignee');
     const users = await User.find({});
     res.render('cases/show', {title: 'Cases', thisCase, users});
 }
@@ -76,10 +81,12 @@ async function statusUpdate(req, res){
 }
 
 async function assignUpdate(req, res){
-    const thisCase = await Case.findById(req.params.id);
+    const thisCase = await Case.findById(req.params.id).populate('requestor');
     const assignee = await User.find({}).where('email').equals(`${req.body.assign}`);
-    thisCase.assignee = assignee;
+    console.log(assignee)
+    thisCase.assignee = assignee[0];
     await thisCase.save();
+    res.render('cases/show', {title: 'Case', thisCase});
 }
 
 async function deleteComment(req, res){

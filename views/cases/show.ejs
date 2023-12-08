@@ -45,7 +45,7 @@
     <button type="submit">Update Status</button>
 </form>
 
-<% if(user.adminPriv === true){ %>
+<% if(user.adminPriv === true && !thisCase.assignee){ %>
 <form id="assign" action="/cases/<%= thisCase._id %>/assign" method="POST">
     <label>Assign:</label>
     <select name="assign">
@@ -93,6 +93,7 @@
                     <th>Status</th>
                     <th>High Priority</th>
                     <th>Requestor</th>
+                    <th>Assigned To</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,6 +104,11 @@
                     <td><%= thisCase.status %></td>
                     <td><%= thisCase.highPriority %></td>
                     <td><%= thisCase.requestor.email %></td>
+                    <% if(thisCase.assignee){ %>
+                        <td><%= thisCase.assignee.email %></td>
+                    <% } else{ %>
+                        <td>Unassigned</td>
+                    <% } %>
                 </tr>
             </tbody>
         </table>
