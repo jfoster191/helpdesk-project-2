@@ -8,14 +8,17 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <nav>
+    <div id="topbar">
+      <span><img id="logo" src="https://i.imgur.com/4GvmVp5.png"></span>
+      <h1>Help Desk</h1>
+    </div>
+    <nav class="nav">
         <% if (user) { %>
           <a href="/">Home</a>
           <% if (user.adminPriv) { %>
             <a href="/users">Manage Users</a>
             <a href="/cases">All Cases</a>
             <a href="/surveys">All Surveys</a>
-          </div>
           <% } %>
           <a href="/cases/mycases">My Cases</a>
           <a href="/surveys/mysurveys">My Surverys</a>

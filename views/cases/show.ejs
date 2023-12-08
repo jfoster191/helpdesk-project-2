@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 <% if(thisCase.status != 'Resolved') { %>
-<h2>Case <%= thisCase.caseNum %>, <%= thisCase.subject %></h2>
+<h1 id="case-show">Case <%= thisCase.caseNum %>, <%= thisCase.subject %></h1>
 <div id="cases-index">
     <table>
         <thead>
@@ -61,7 +61,7 @@
 
 <% } else { %>
 
-    <h2>Case <%= thisCase.caseNum %>, <%= thisCase.subject %></h2>
+    <h1 id="case-show" style="margin-top: -5vmin;">Case <%= thisCase.caseNum %>, <%= thisCase.subject %></h1>
     <div id="cases-index">
         <table>
             <thead>

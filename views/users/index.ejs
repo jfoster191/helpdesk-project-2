@@ -1,13 +1,14 @@
 <%- include('../partials/header') %>
 
-<h1>Manage Users</h1>
-<table>
+<h1 id="manage">Manage Users</h1>
+<table class="manage">
     <thead>
         <tr>
-            <th>Avatar</th>
+            <th>Profile Picture</th>
             <th>Name</th>
             <th>Email</th>
             <th>Administrator</th>
+            <th>Change Priviledge</th>
         </tr>
     </thead>
     <tbody>
@@ -17,11 +18,10 @@
                 <td><%= u.name %></td>
                 <td><%= u.email %></td>
                 <td><%= u.adminPriv %></td>
-                <td><form action="/users/<%= u._id %>/update" method="POST">
-                    <input type="checkbox" name="adminPriv">
-                    <button>Change Admin Priviledge</button>
+                <form id="priv-form" action="/users/<%= u._id %>/update" method="POST">
+                    <td><input type="checkbox" name="adminPriv">
+                    <button>Submit Change</button></td>
                 </form>
-                </td>
             </tr>
         <% }) %>
     </tbody>

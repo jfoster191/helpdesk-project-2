@@ -1,13 +1,13 @@
 <%- include('../partials/header') %>
 
-<h1>My Surveys</h1>
+<h1 id="my-surveys">My Surveys</h1>
 <table>
     <thead>
         <tr>
             <th>Subject</th>
-            <th>Case Number</th>
             <th>Comment</th>
             <th>Rating</th>
+            <th>Case Number</th>
         </tr>
     </thead>
     <tbody>
@@ -15,10 +15,14 @@
             <% if(c.survey){ %>
                 <tr>
                     <td><%= c.subject %></td>
+                    <td id="comment"><%= c.survey.comment %></td>
+                    <td id="rating"><%= c.survey.rating %></td>
                     <td><%= c.caseNum %></td>
-                    <td><%= c.survey.comment %></td>
-                    <td><%= c.survey.rating %></td>
-                    <td><a href="/survey/<%= c._id %>/update">Edit</a></td>
+                    <!-- <td><a id="edit" 
+onclick="document.getElementById('comment').innerHTML = '<textarea></textarea>', document.getElementById('rating').innerHTML= ' <select><option selected>Select A Rating</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>'"                         
+                        >Edit</a></td> -->
+                    <!-- <td><a href="/surveys/<%= c._id %>/update">Save</a></td>
+                    <td><a href="/surveys/mysurveys">Cancel</a></td> -->
                 </tr>
             <% } %>
         <% }) %>

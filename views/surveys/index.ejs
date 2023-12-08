@@ -1,13 +1,13 @@
 <%- include('../partials/header') %>
 
-<h1>All Surveys</h1>
+<h1 id="all-surveys">All Surveys</h1>
 <table>
     <thead>
         <tr>
             <th>Subject</th>
-            <th>Case Number</th>
             <th>Comment</th>
             <th>Rating</th>
+            <th>Case Number</th>
         </tr>
     </thead>
     <tbody>
@@ -17,9 +17,9 @@
             <% if(c.survey){ %>
                 <tr>
                     <td><%= c.subject %></td>
-                    <td><%= c.caseNum %></td>
                     <td><%= c.survey.comment %></td>
                     <td><%= c.survey.rating %></td>
+                    <td><%= c.caseNum %></td>
                 </tr>
                 <% ratingAvg = ratingAvg+c.survey.rating %>
                 <% total++ %>

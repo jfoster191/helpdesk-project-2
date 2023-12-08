@@ -1,5 +1,9 @@
 <%- include('./partials/header') %>
 
-<h2>Home Page</h2>
+<h2 id="home-text">Home Page</h2>
+<% if(user){ %>
+<h3>Welcome, <%= user.name %><h3>
+<h3>Use the navigation bar to get started.</h3>
+<% } %>
 
 <%- include('./partials/footer') %>
