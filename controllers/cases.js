@@ -59,10 +59,11 @@ async function show(req, res){
 
 async function newComment(req, res){
     const thisCase = await Case.findById(req.params.id);
+    const users = await User.find({});
     if (req.body.comment === '') return
     thisCase.comment.push(req.body.comment);
     await thisCase.save();
-    res.render('cases/show', {title: 'Case', thisCase});
+    res.render('cases/show', {title: 'Case', thisCase, users});
 }
 
 async function newSurvey(req, res){
@@ -74,7 +75,7 @@ async function newSurvey(req, res){
     res.render('cases/show', {title: 'Case', thisCase, survey});
 }
 async function statusUpdate(req, res){
-    const thisCase = await Case.findById(req.params.id);
+    const thisCase = await Case.findById(req.params.id).populate('requestor').populate('assignee');
     thisCase.status = req.body.status;
     await thisCase.save();
     res.render('cases/show', {title: 'Case', thisCase});
