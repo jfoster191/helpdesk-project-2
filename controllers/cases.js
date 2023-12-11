@@ -58,7 +58,7 @@ async function show(req, res){
 }
 
 async function newComment(req, res){
-    const thisCase = await Case.findById(req.params.id);
+    const thisCase = await Case.findById(req.params.id).populate('requestor').populate('assignee');
     const users = await User.find({});
     if (req.body.comment === '') return
     thisCase.comment.push(req.body.comment);
@@ -67,7 +67,7 @@ async function newComment(req, res){
 }
 
 async function newSurvey(req, res){
-    const thisCase = await Case.findById(req.params.id);
+    const thisCase = await Case.findById(req.params.id).populate('requestor').populate('assignee');
     req.body.user = req.user;
     thisCase.survey = req.body;
     await thisCase.save();
@@ -76,22 +76,22 @@ async function newSurvey(req, res){
 }
 async function statusUpdate(req, res){
     const thisCase = await Case.findById(req.params.id).populate('requestor').populate('assignee');
+    const users = await User.find({});
     thisCase.status = req.body.status;
     await thisCase.save();
-    res.render('cases/show', {title: 'Case', thisCase});
+    res.render('cases/show', {title: 'Case', thisCase, users});
 }
 
 async function assignUpdate(req, res){
-    const thisCase = await Case.findById(req.params.id).populate('requestor');
+    const thisCase = await Case.findById(req.params.id).populate('requestor').populate('assignee');
     const assignee = await User.find({}).where('email').equals(`${req.body.assign}`);
-    console.log(assignee)
     thisCase.assignee = assignee[0];
     await thisCase.save();
     res.render('cases/show', {title: 'Case', thisCase});
 }
 
 async function deleteComment(req, res){
-    const thisCase = await Case.findById(req.params.id);
+    const thisCase = await Case.findById(req.params.id).populate('requestor').populate('assignee');
     let id = JSON.stringify(req.body);
     id = id.slice(2,3);
     thisCase.comment.splice(`${id}`, 1);
