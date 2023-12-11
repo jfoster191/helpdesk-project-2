@@ -128,7 +128,7 @@
     <% } %>
     <br>
 
-    <% if (!thisCase.survey){ %>
+    <% if (!thisCase.survey && thisCase.requestor.id === user.id){ %>
     <form id="survey" action="/cases/<%= thisCase._id %>/survey" method="POST">
         <h3>Survey</h3>
         <label>Comment:</label>
@@ -144,7 +144,7 @@
         </select>
         <button type="submit">Submit Survey</button>
     </form>
-    <% } else { %>
+    <% } else if (thisCase.survey) { %>
         <h3>Survey</h3>
         <h5>Comment</h5>
         <div><%= thisCase.survey.comment %></div>
