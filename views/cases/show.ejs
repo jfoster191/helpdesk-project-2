@@ -66,10 +66,12 @@
     <h3>Comments</h3>
     <% thisCase.comment.forEach(function(c, idx) { %>
         <% if(c === thisCase.comment[0]) return %>
-        <div><%= c %></div>
-        <form action="/cases/<%= thisCase._id %>/deletecomment?_method=DELETE" method="POST">
-            <button name="<%= idx %>" type="submit">Delete</button>
+        <div id="comments">
+            <div><%= c %></div>
+            <form action="/cases/<%= thisCase._id %>/deletecomment?_method=DELETE" method="POST">
+                <button name="<%= idx %>" type="submit">Delete</button>
         </form>
+    </div>
    <% }) %>
 <% }else { %>
     <h3>No Additional Comments Yet</h3>
