@@ -25,4 +25,6 @@ Link to web application: <a href="" target="_blank">Help Desk</a>
 <img src="https://i.imgur.com/RxMsdEz.png">
 
 ## Next Steps
-Refactor code so that user who created comment is the only one allowed to delete comment.
+- Refactor code so that user who created comment is the only one allowed to delete comment.
+- Add a due date.
+- Add ability to sort tables by different headers.
