@@ -10,7 +10,7 @@ Administrators have access to all cases and the ability to assign cases. They al
 
 ## Getting Started
 
-Link to web application: <a href="" target="_blank">Help Desk</a>
+Link to web application: <a href="https://github.com/jfoster191/helpdesk-project-2/blob/main" target="_blank">Help Desk</a>
 
 ### Splash Page for Login
 <img src="https://i.imgur.com/SDc6MLD.png">
